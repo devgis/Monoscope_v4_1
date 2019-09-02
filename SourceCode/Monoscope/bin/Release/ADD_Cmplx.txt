@@ -1,0 +1,40 @@
+
+setBatchMode(true);
+WrkPth=getArgument+"\\"; 
+
+//pth="d:\\scannerdata\\20150617_plate1";
+sss="["+WrkPth;
+sss=sss+"Counting.txt"+"]";
+run("Set Results Path...", "file="+sss);
+
+
+Filelist = getFileList(WrkPth);
+Array.sort(Filelist);
+
+for (i=0; i<Filelist.length; i++) {//Filelist.length;
+     	if (Filelist[i]!="Thumbs.db" && Filelist[i]!="Counting.txt" && Filelist[i]!="CountingComplex.txt" && Filelist[i]!="CountingLaszlo.txt"&& Filelist[i]!="focus.txt"){
+
+		//s="";
+		//if (i<100){s=s+"0";}
+
+		//if (i<10){s=s+"0";}
+		//s=s+i;
+
+        	//path = WrkPth +"\\"+s+".jpg";  //Filelist[i];
+	        path=WrkPth +"\\"+ Filelist[i];
+		open(path);             
+run("Despeckle");
+run("Subtract Background...", "rolling=50");
+run("Watershed Segmentation", "blurring='1.0'   watershed='1 1 0 55 1 0' display='5'");
+run("Find Maxima...", "noise=6 output=Count");
+
+//		run("Subtract Background...", "rolling=50");
+//		run("Gaussian Blur...", "sigma=1");
+//                run("Classic Watershed", "mask=None use diagonal connectivity min=0 max=50");
+		
+//        	run("Find Maxima...", "noise=8 output=Count");
+		close();
+	}
+}
+
+run("Quit");

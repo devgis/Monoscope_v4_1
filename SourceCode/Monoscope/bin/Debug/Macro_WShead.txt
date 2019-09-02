@@ -1,0 +1,10 @@
+//close();
+//open("H:\\Test_001_CountingCalibration\\1_Kasumi3\\023.jpg");
+open("000.jpg");
+//setTool("rectangle");
+//makeRectangle(1016, 4, 416, 368);
+//run("Crop");
+run("Despeckle");
+run("Subtract Background...", "rolling=50");
+run("Watershed Segmentation", "blurring='2.0'   watershed='1 1 0 55 1 0' display='5'");
+run("Find Maxima...", "noise=6 output=Count");

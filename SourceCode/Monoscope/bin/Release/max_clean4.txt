@@ -1,0 +1,29 @@
+
+setBatchMode(true);
+rename("STACK");
+
+for (i=1 ; i<385; i++) {
+Stack.setSlice(i);
+
+
+rename("ORIG");
+run("Gaussian Blur...", "sigma=1");
+run("Duplicate...", "title=BKGR_Gauss");
+selectWindow("BKGR_Gauss");
+run("Gaussian Blur...", "sigma=4");
+selectWindow("ORIG");
+run("Unsharp Mask...", "radius=3 mask=0.60");
+imageCalculator("Subtract", "ORIG","BKGR_Gauss");
+selectWindow("ORIG");
+run("Gamma...", "value=1.8");
+run("Gaussian Blur...", "sigma=1");
+run("Multiply...", "value=6");
+selectWindow("BKGR_Gauss");
+close();
+run("Gamma...", "value=0.8");
+run("Find Maxima...", "noise=10 output=Count");
+
+
+
+}
+setBatchMode(false);

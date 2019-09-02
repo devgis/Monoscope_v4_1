@@ -1,0 +1,20 @@
+
+setBatchMode(true);
+pth="d:\\scannerdata\\20150617_plate2";
+
+Filelist = getFileList(pth);
+
+for (i=0; i<Filelist.length; i++) {
+     	if (Filelist[i]!="Thumbs.db"){
+
+        	path = pth +"\\"+Filelist[i];
+	        open(path);
+                run("Subtract Background...", "rolling=50");
+		saveAs("Jpeg",pth+"\\bgfree\\"+Filelist[i]);
+		close();
+	}
+}
+selectWindow ("Results");
+saveAs("Text", pth+"\\"+"Count");
+run("Close");
+quit();
